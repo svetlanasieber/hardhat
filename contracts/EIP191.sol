@@ -12,11 +12,11 @@ contract EIP191 {
         bytes32 s
     ) public pure returns (address) {
         bytes32 rawMessageHash = keccak256(bytes(message));
-        // prepend "\x19Ethereum Signed Message:\n" + length
+        
         bytes32 messageHash = keccak256(
             abi.encodePacked("\x19Ethereum Signed Message:\n32", rawMessageHash)
         );
-        // Recover the signer
+    
         address signer = ecrecover(messageHash, v, r, s);
         require(signer != address(0), "Invalid signature");
         return signer;
